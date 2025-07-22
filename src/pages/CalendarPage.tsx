@@ -89,8 +89,8 @@ const CalendarPage = ({ user }: Props) => {
 
     try {
       if (selectedEvent) {
-        const eventRef = doc(db, 'events', selectedEvent.id);
-        await updateDoc(eventRef, eventData);
+        if (!selectedEvent?.id) return;
+        await updateDoc(doc(db, 'events', selectedEvent.id), eventData);
       } else {
         await addDoc(collection(db, 'events'), eventData);
       }
